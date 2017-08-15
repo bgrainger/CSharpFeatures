@@ -1,12 +1,25 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace CSharp71
 {
 	class Program
 	{
-		static void Main(string[] args)
+		static int CSharp7Main(string[] args)
 		{
-			Console.WriteLine("Hello World!");
+			async Task<int> RealMain()
+			{
+				await Console.Out.WriteLineAsync("Hello world");
+				return 0;
+			}
+
+			return RealMain().GetAwaiter().GetResult();
+		}
+
+		static async Task<int> Main(string[] args)
+		{
+			await Console.Out.WriteLineAsync("Hello world");
+			return 0;
 		}
 	}
 }
