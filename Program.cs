@@ -16,6 +16,14 @@ namespace CSharp71
 			return RealMain().GetAwaiter().GetResult();
 		}
 
+		static int CSharp7MainExpression(string[] args) => RealMain(args).GetAwaiter().GetResult();
+
+		static async Task<int> RealMain(string[] args)
+		{
+			await Console.Out.WriteLineAsync("Hello world");
+			return 0;
+		}
+
 		static async Task<int> Main(string[] args)
 		{
 			await Console.Out.WriteLineAsync("Hello world");
