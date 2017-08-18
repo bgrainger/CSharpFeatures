@@ -18,7 +18,7 @@ namespace CSharp71
 	    }
 
 		public static string ToSql<T>(T value)
-	    {
+		{
 		    switch (value) // C# 7.0 workaround: switch ((object) value)
 		    {
 		    case string str: // C# 7.0: CS8121 An expression of type T cannot be handled by a pattern of type string.
@@ -33,6 +33,12 @@ namespace CSharp71
 		    default:
 			    return value == null ? "NULL" : value.ToString();
 			}
+	    }
+
+	    public static void GenericAsPattern<T>(string input)
+	    {
+		    if (input is T t)
+			    Console.WriteLine("typeof(T) must be string.");
 	    }
     }
 }
