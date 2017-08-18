@@ -79,7 +79,7 @@ namespace CSharp71
 				break;
 
 			case (default):
-				// case default:  warning CS8313: Did you mean to use the default switch label (`default:`) rather than `case default:`? If you really mean to use the default literal, consider `case (default):` or another literal (`case 0:` or `case null:`) as appropriate.
+				// case default: warning CS8313: Did you mean to use the default switch label (`default:`) rather than `case default:`? If you really mean to use the default literal, consider `case (default):` or another literal (`case 0:` or `case null:`) as appropriate.
 				Console.WriteLine("is null");
 				break;
 
