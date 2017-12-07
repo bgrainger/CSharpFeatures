@@ -8,8 +8,11 @@ namespace CSharp72
     {
 		public void UseInMethod()
 		{
-			var rs = new RefStruct();
+			var rs = new RefStruct(1);
 		}
+
+		// error CS8345: Field or auto-implemented property cannot be of type 'RefStruct' unless it is an instance member of a ref struct.
+		// RefStruct cannotBeField;
 
 		public void CannotBox()
 		{
@@ -51,6 +54,8 @@ namespace CSharp72
 	}
 
 	public ref struct RefStruct
+		// error CS8343: 'RefStruct': ref structs cannot implement interfaces
+		// : IDisposable
 	{
 		public RefStruct(int value) => Value = value;
 
