@@ -2,8 +2,8 @@ using System;
 
 namespace CSharp72
 {
-    public class RefReadonly
-    {
+	public class RefReadonly
+	{
 		readonly Point3D m_readonlyStructField;
 		readonly ReadOnlyPoint3D m_readonlyReadOnlyStructField;
 

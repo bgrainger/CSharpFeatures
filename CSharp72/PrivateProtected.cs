@@ -1,7 +1,7 @@
 namespace CSharp72
 {
-    public class PrivateProtectedBase
-    {
+	public class PrivateProtectedBase
+	{
 		protected internal void ProtectedInternal()
 		{
 			// "protected internal" is "protected OR internal"

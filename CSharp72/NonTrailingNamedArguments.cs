@@ -3,7 +3,7 @@ using System.IO;
 namespace CSharp72
 {
 	public class NonTrailingNamedArguments
-    {
+	{
 		public void Previous()
 		{
 			// option 1: don't name arguments (loses clarity)
@@ -25,5 +25,5 @@ namespace CSharp72
 		public void SomeMethod(string filePath, bool truncate, bool createIfMissing, FileShare fileShare, FileAccess fileAccess)
 		{
 		}
-    }
+	}
 }

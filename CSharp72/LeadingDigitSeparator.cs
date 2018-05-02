@@ -1,7 +1,7 @@
 namespace CSharp72
 {
-    public class LeadingDigitSeparator
-    {
+	public class LeadingDigitSeparator
+	{
 		public void Previous()
 		{
 			// _ was allowed as digit separator in numbers
@@ -19,5 +19,5 @@ namespace CSharp72
 			// can't have leading underscore on non-prefixed number; this is an identifier
 			// var base10 = _123_456_789;
 		}
-    }
+	}
 }
