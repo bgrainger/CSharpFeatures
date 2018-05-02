@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 
 namespace CSharp72
 {
-    public class Examples
-    {
+	public class Examples
+	{
 		public void UseInMethod()
 		{
 			var rs = new RefStruct(1);
