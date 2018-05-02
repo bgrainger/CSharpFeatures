@@ -56,11 +56,6 @@ namespace CSharp71
 		{
 			if (default == value) { }
 			if (value == default) { }
-
-			// if (value is default) { }
-			// was legal in C# 7.1
-			// VS 15.6: error CS8363: A default literal 'default' is not valid as a pattern.Use another literal(e.g. '0' or 'null') as appropriate.To match everything, use a discard pattern 'var _'.
-			// https://github.com/dotnet/roslyn/issues/23499
 		}
 
 		public static void As()
@@ -104,6 +99,11 @@ namespace CSharp71
 
 			// error CS0023: Operator 'is' cannot be applied to operand of type 'default'
 			// if (default is string);
+
+			// if (value is default) { }
+			// was legal in C# 7.1
+			// VS 15.6: error CS8363: A default literal 'default' is not valid as a pattern.Use another literal(e.g. '0' or 'null') as appropriate.To match everything, use a discard pattern 'var _'.
+			// https://github.com/dotnet/roslyn/issues/23499
 
 			// error CS0815: Cannot assign default to an implicitly-typed variable
 			// var i = default;
