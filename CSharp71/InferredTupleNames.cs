@@ -53,7 +53,7 @@ namespace CSharp71
 			var tuple = (X, Dump);
 
 			// C# 7.0: called extension method
-			// C# 7.0 in VS 2017.3: error CS8306: Tuple element name 'Dump' is inferred. Please use language version 7.1 or greater to access an element by its inferred name.
+			// C# 7.0 in VS 2017 15.3: error CS8306: Tuple element name 'Dump' is inferred. Please use language version 7.1 or greater to access an element by its inferred name.
 			// C# 7.1: calls tuple.Item2() (via inferred name "Dump")
 			tuple.Dump();
 		}
