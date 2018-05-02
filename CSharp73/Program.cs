@@ -2,9 +2,11 @@ namespace CSharp73
 {
 	class Program
 	{
-		static int Main(string[] args)
+		static unsafe void Main()
 		{
-			return 0;
+			var sai = new PatternBasedFixed();
+			sai.CSharp7();
+			sai.CSharp73();
 		}
 	}
 }
