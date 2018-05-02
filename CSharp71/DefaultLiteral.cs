@@ -40,8 +40,8 @@ namespace CSharp71
 		{
 			var array = new[]
 			{
-				default,
 				// C# 7.0: default(ValueTuple<string, int>),
+				default,
 				("name", 42),
 			};
 		}
@@ -56,7 +56,11 @@ namespace CSharp71
 		{
 			if (default == value) { }
 			if (value == default) { }
-			if (value is default) { }
+
+			// if (value is default) { }
+			// was legal in C# 7.1
+			// VS 15.6: error CS8363: A default literal 'default' is not valid as a pattern.Use another literal(e.g. '0' or 'null') as appropriate.To match everything, use a discard pattern 'var _'.
+			// https://github.com/dotnet/roslyn/issues/23499
 		}
 
 		public static void As()
@@ -78,8 +82,11 @@ namespace CSharp71
 				Console.WriteLine("is empty");
 				break;
 
-			case (default):
-				// case default: warning CS8313: Did you mean to use the default switch label (`default:`) rather than `case default:`? If you really mean to use the default literal, consider `case (default):` or another literal (`case 0:` or `case null:`) as appropriate.
+			// case default:
+				// C# 7.1: warning CS8313: Did you mean to use the default switch label (`default:`) rather than `case default:`? If you really mean to use the default literal, consider `case (default):` or another literal (`case 0:` or `case null:`) as appropriate.
+			// case (default):
+				// VS 15.6: error CS8313: A default literal 'default' is not valid as a case constant. Use another literal (e.g. '0' or 'null') as appropriate. If you intended to write the default label, use 'default:' without 'case'.
+			case null:
 				Console.WriteLine("is null");
 				break;
 
