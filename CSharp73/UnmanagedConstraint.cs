@@ -17,6 +17,15 @@ namespace CSharp73
 			}
 		}
 
+		public static unsafe int Hash<T>(T* ptr) where T : unmanaged
+		{
+			uint hash = 5381;
+			byte* p = (byte*) ptr;
+			for (int i = 0; i < sizeof(T); i++)
+				hash = hash * 33 + p[i];
+			return (int) hash;
+		}
+
 		public static void Example()
 		{
 			Console.WriteLine(Hash(42));
