@@ -39,7 +39,8 @@ namespace CSharp72
 		public double SafeButWorseComputeDistance(in Point3D point1, in Point3D point2)
 		// public double SafeButWorseComputeDistance([IsReadOnly] ref Point3D point1, [IsReadOnly] ref Point3D point2)
 		{
-			// After adding support for in parameters and ref redonly returns the problem of defensive copying will get worse since readonly variables will become more common.
+			// "After adding support for in parameters and ref readonly returns the problem of defensive copying will get worse since readonly variables will become more common."
+			// https://github.com/dotnet/csharplang/blob/master/proposals/csharp-7.2/readonly-ref.md
 
 			double xDifference = point1.X - point2.X;
 			double yDifference = point1.Y - point2.Y;
