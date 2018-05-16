@@ -15,6 +15,11 @@ namespace CSharp73
 			set => _csharp7Field = value;
 		}
 
+		// can apply an attribute to the backing field in C# 7.0
+		[field: NonSerialized]
+		public event EventHandler MyEvent;
+
+		// now the same is possible for auto-generated properties in C# 7.3
 		[field: NonSerialized]
 		public string Secret { get; set;  }
 
