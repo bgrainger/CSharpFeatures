@@ -11,17 +11,17 @@ namespace CSharp73
 		public void CSharp7()
 		{
 			// take address of array
-			var a = new[] { 123 };
+			var a = new[] { 1, 2, 3 };
 			fixed (int* p = a)
 			{
-				Console.WriteLine(p[0]); // 123
+				Console.WriteLine(p[1]); // 2
 			}
 
 			// compiler has special support for System.String: implicit conversion to char* pointer
 			var s = "string";
 			fixed (char* p = s)
 			{
-				Console.WriteLine(p[0]); // 's'
+				Console.WriteLine(p[1]); // 't'
 			}
 		}
 
@@ -29,18 +29,26 @@ namespace CSharp73
 		{
 			// for other types, had to use helper methods
 			var span = new Span<int>(new[] { 1, 2, 3 });
-			// used to be: fixed (int* p = &span.DangerousGetPinnableReference())
-			fixed (int* p = &MemoryMarshal.GetReference(span))
-			// coming soon: fixed (int* p = span)
+			// used to be: fixed (int* p = &span.DangerousGetPinnableReference()) // returned ref T
+			fixed (int* thenWas = &MemoryMarshal.GetReference(span)) // returns ref T
+			fixed (int* now = span)
 			{
-				Console.WriteLine(p[0]); // 1
+				Console.WriteLine(now[1]); // 2
 			}
 
-			// implement for your own types
+			// implement for your own types, similar to the "duck typing" for 'foreach', 'await', etc
+			// if you get it wrong: warning CS0280: 'Fixable' does not implement the 'fixed' pattern. 'Fixable.GetPinnableReference()' has the wrong signature.
 			var fixable = new Fixable();
 			fixed (int* p = fixable)
 			{
-				Console.WriteLine(p[0]); // 1
+				Console.WriteLine(p[1]); // 2
+			}
+
+			// implement for someone else's type (assuming its internals are sufficiently exposed)
+			var fixable2 = new Fixable2();
+			fixed (int* p = fixable2)
+			{
+				Console.WriteLine(p[1]); // 2
 			}
 		}
 	}
@@ -50,5 +58,15 @@ namespace CSharp73
 		readonly int[] _array = { 1, 2, 3, 4, 5 };
 
 		public ref int GetPinnableReference() => ref _array[0];
+	}
+
+	public class Fixable2
+	{
+		public readonly int[] _array = { 1, 2, 3, 4, 5 };
+	}
+
+	public static class ExtensionMethods
+	{
+		public static ref int GetPinnableReference(this Fixable2 fixable2) => ref fixable2._array[0];
 	}
 }
