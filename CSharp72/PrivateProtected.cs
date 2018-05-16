@@ -14,7 +14,7 @@ namespace CSharp72
 			// uses 'famandassem' access specifier in IL
 		}
 
-		// all dervied types must be in this assembly
+		// all derived types must be in this assembly
 		// private protected PrivateProtectedBase() { }
 	}
 
