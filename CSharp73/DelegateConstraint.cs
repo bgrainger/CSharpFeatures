@@ -9,7 +9,7 @@ namespace CSharp73
 			// error CS0702: Constraint cannot be special class 'Delegate'
 			where T : class
 		{
-			// error CS0030: Cannot convert type 'System.Delegate' to 'T'
+			// cast produces error CS0030: Cannot convert type 'System.Delegate' to 'T'
 			return Delegate.CreateDelegate(typeof(T), d.Target, d.Method) as T;
 		}
 
