@@ -11,15 +11,15 @@ namespace CSharp73
 	/// </summary>
 	unsafe class IndexingFixedFields
 	{
-		static FixedStruct fs;
+		FixedStruct m_fs;
 
 		public void CSharp7()
 		{
 			// can access field directly
-			var value2 = fs.FixedField;
+			var value2 = m_fs.FixedField;
 
 			// must pin the (movable) struct before accessing an array value by index
-			fixed (FixedStruct* p = &fs)
+			fixed (FixedStruct* p = &m_fs)
 			{
 				var value = p->FixedArray[5];
 			}
@@ -28,7 +28,8 @@ namespace CSharp73
 		public void CSharp73()
 		{
 			// direct access without pinning
-			var value = fs.FixedArray[5];
+			// error CS1666: You cannot use fixed size buffers contained in unfixed expressions. Try using the fixed statement.
+			var value = m_fs.FixedArray[5];
 		}
 	}
 }
