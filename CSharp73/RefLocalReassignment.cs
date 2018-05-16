@@ -6,7 +6,7 @@ namespace CSharp73
 		{
 			ref Point3D best = ref a;
 			if (IsBetter(ref b, ref best))
-				best = ref b;
+				best = ref b; // error CS1073: Unexpected token 'ref'
 			if (IsBetter(ref c, ref best))
 				best = ref c;
 			return ref best;
