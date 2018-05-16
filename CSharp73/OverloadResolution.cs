@@ -35,10 +35,10 @@ namespace CSharp73
 		delegate int D1();
 		delegate string D2();
 
-		static int Helper() => 1;
-
 		static void Method(D1 d1) { }
 		static void Method(D2 d2) { }
+
+		static int Helper() => 1;
 
 		public static void CompilerGeneratedCode()
 		{
