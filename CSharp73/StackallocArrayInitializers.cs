@@ -8,7 +8,7 @@ namespace CSharp73
 		public void CSharp7()
 		{
 			// allocate the array, then set its elements
-			var x = stackalloc int[3];
+			int* x = stackalloc int[3];
 			x[0] = 1;
 			x[1] = 2;
 			x[2] = 3;
