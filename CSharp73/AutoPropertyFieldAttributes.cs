@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.Serialization;
 
 namespace CSharp73
 {
@@ -7,26 +6,17 @@ namespace CSharp73
 	class AutoPropertyFieldAttributes
 	{
 		[NonSerialized]
-		private string _csharp7Field;
+		[ThreadStatic]
+		private string _secret;
 
-		public string CSharp7Field
+		public string Secret
 		{
-			get => _csharp7Field;
-			set => _csharp7Field = value;
+			get => _secret;
+			set => _secret = value;
 		}
 
 		// can apply an attribute to the backing field in C# 7.0
 		[field: NonSerialized]
 		public event EventHandler MyEvent;
-
-		// now the same is possible for auto-generated properties in C# 7.3
-		[field: NonSerialized]
-		public string Secret { get; set;  }
-
-		[field: OptionalField]
-		public string Optional { get; set; }
-
-		[field: ThreadStatic]
-		public static int Count { get; set; }
 	}
 }

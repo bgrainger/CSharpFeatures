@@ -30,10 +30,9 @@ namespace CSharp73
 			// for other types, had to use helper methods
 			var span = new Span<int>(new[] { 1, 2, 3 });
 			// used to be: fixed (int* p = &span.DangerousGetPinnableReference()) // returned ref T
-			fixed (int* thenWas = &MemoryMarshal.GetReference(span)) // returns ref T
-			fixed (int* now = span)
+			fixed (int* p = &MemoryMarshal.GetReference(span)) // returns ref T
 			{
-				Console.WriteLine(now[1]); // 2
+				Console.WriteLine(p[1]); // 2
 			}
 
 			// implement for your own types, similar to the "duck typing" for 'foreach', 'await', etc

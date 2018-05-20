@@ -8,48 +8,41 @@ namespace CSharp71
 		public static void Locals()
 		{
 			// initialize struct, class, or built-in
-			ValueTuple<string, int> tuple = default;
-			IReadOnlyCollection<string> collection = default;
-			int i = default;
+			IReadOnlyCollection<string> collection = null;
+			int i = 0;
+			ValueTuple<string, int> tuple = default(ValueTuple<string, int>);
 
 			// can initialize constants
 			const int j = default;
-
-			// C# 7.0
-			ValueTuple<string, int> tuple1 = default(ValueTuple<string, int>);
-			var tuple2 = default(ValueTuple<string, int>);
 		}
 
 		public static void ConditionalExpression(string value)
 		{
-			var tuple = value == null ? default : (value, value.Length);
+			var tuple = value == null ? default((string, int)) : (value, value.Length);
 		}
 
 		public static ValueTuple<string, int> GetValue()
 		{
-			// C# 7.0: return default(ValueTuple<string, int>);
-			return default;
+			return default(ValueTuple<string, int>);
 		}
 
-		public static void OptionalParameters(ValueTuple<string, int> tuple = default)
+		public static void OptionalParameters(ValueTuple<string, int> tuple = default(ValueTuple<string, int>))
 		{
-			// C# 7.0: ValueTuple<string, int> tuple = default(ValueTuple<string, int>)
 		}
 
 		public static void ArrayInitializers()
 		{
 			var array = new[]
 			{
-				// C# 7.0: default(ValueTuple<string, int>),
-				default,
+				default(ValueTuple<string, int>),
 				("name", 42),
 			};
 		}
 
 		public static void MethodCall()
 		{
-			ConditionalExpression(default);
-			OptionalParameters(default);
+			ConditionalExpression(default(string));
+			OptionalParameters(default(ValueTuple<string, int>));
 		}
 
 		public static void Comparison(string value)
