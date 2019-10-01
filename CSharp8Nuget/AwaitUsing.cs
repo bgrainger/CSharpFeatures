@@ -43,20 +43,14 @@ namespace CSharp8Nuget
 		public ValueTask DisposeAsync() => default;
 	}
 
-	public ref struct RefStructUser
+	public class RefStructUser
 	{
 		public async Task AwaitUsing()
 		{
-			// ref struct supports duck typing for DisposeAsync too
-			await using (m_rs)
-			{
-				// a ref struct cannot be a local in an async method (because it might leak to the heap), so you can't do this:
-				// error CS4012: Parameters or locals of type 'RefStruct' cannot be declared in async methods or lambda expressions.
-				// await using var rs = new RefStruct();
-			}
+			// a ref struct cannot be a local in an async method (because it might leak to the heap), so you can't do this:
+			// error CS4012: Parameters or locals of type 'RefStruct' cannot be declared in async methods or lambda expressions.
+			// await using var rs = new RefStruct();
 		}
-
-		RefStruct m_rs;
 	}
 
 	public class ImplementBoth : IAsyncDisposable, IDisposable
