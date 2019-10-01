@@ -1,5 +1,6 @@
 #nullable enable
 using System;
+using System.Collections.Generic;
 
 namespace CSharp8Framework
 {
@@ -32,5 +33,16 @@ namespace CSharp8Framework
 			return s.Length;
 		}
 
+		public void ComposingTypes()
+		{
+			List<string> nonNullableListOfNonNullableString = new List<string> { "test" };
+			List<string>? nullableListOfNonNullableString = null;
+			List<string?> nonNullableListOfNullableString = new List<string?> { null };
+			List<string?>? nullableListOfNullableString = DateTime.Now.Month == 1 ? null : new List<string?> { null };
+
+			string[]? nullableArray = null;
+			string?[] arrayOfNullableString = new string?[] { null };
+			string?[]? nullableArrayOfNullableString = nullableListOfNullableString?.ToArray();
+		}
 	}
 }
