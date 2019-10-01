@@ -1,6 +1,6 @@
 using System;
 
-namespace CSharp8Framework
+namespace CSharp8Nuget
 {
 	class Program
 	{
