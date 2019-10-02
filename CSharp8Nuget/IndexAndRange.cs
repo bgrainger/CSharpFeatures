@@ -49,6 +49,12 @@ namespace CSharp8Nuget
 			range = str[16..]; // "fox"
 			range = str[..]; // "the quick brown fox";
 
+			// remove first character
+			str = str[1..];
+
+			// remove last character
+			str = str[..^1];
+
 			Console.WriteLine(object.ReferenceEquals(range, str)); // True
 		}
 
