@@ -27,6 +27,16 @@ namespace CSharp8Nuget
 			// "await DisposeAsync" will be called at the end of this scope
 		}
 
+		public async Task UsingDuckTyping()
+		{
+			await using var duck = new DuckTyping();
+
+			// throws InvalidCastException
+			// var disposable = (IAsyncDisposable) duck;
+
+			// await duck.DisposeAsync called here
+		}
+
 		public async Task InBclInNetStandard21()
 		{
 			// requires netstandard2.1 BCL; can't use a NuGet package
@@ -38,19 +48,10 @@ namespace CSharp8Nuget
 		}
 	}
 
-	public ref struct RefStruct
+	// don't need to implement the interface, just the right method signature
+	public class DuckTyping
 	{
 		public ValueTask DisposeAsync() => default;
-	}
-
-	public class RefStructUser
-	{
-		public async Task AwaitUsing()
-		{
-			// a ref struct cannot be a local in an async method (because it might leak to the heap), so you can't do this:
-			// error CS4012: Parameters or locals of type 'RefStruct' cannot be declared in async methods or lambda expressions.
-			// await using var rs = new RefStruct();
-		}
 	}
 
 	public class ImplementBoth : IAsyncDisposable, IDisposable
