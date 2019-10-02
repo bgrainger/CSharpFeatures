@@ -44,6 +44,17 @@ namespace CSharp8Framework
 			using var needsANameHere = token.Register(() => Console.WriteLine("was cancelled"));
 		}
 
+		public void CannotUseExistingVariable()
+		{
+			// error CS1001: Identifier expected
+			// using m_connection;
+			// m_connection.Open();
+
+			using var needsANameHere = m_connection;
+		}
+
 		private DbConnection CreateConnection() => null;
+
+		private DbConnection m_connection;
 	}
 }

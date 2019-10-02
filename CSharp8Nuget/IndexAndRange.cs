@@ -27,6 +27,15 @@ namespace CSharp8Nuget
 			// only has one element: "quick"
 			// range is two indexes, not index+length
 			range = Words[1..2];
+
+			// this does actually create a new array, not a lightweight "slice"
+			var newArray = Words[1..^1]; // newArray is string[]
+
+			// use .AsSpan() first to be more efficient
+			var slice = Words.AsSpan()[1..^1]; // slice is Span<string>
+
+			// DO NOT DO THIS; this creates a temporary array then implicitly converts it to Span<string>
+			Span<string> slice2 = Words[1..^1];
 		}
 
 		public void StringRange()
@@ -38,6 +47,9 @@ namespace CSharp8Nuget
 			// beginning or end indexes can be omitted
 			range = str[..3]; // "the"
 			range = str[16..]; // "fox"
+			range = str[..]; // "the quick brown fox";
+
+			Console.WriteLine(object.ReferenceEquals(range, str)); // True
 		}
 
 		public void Variables()
@@ -45,8 +57,14 @@ namespace CSharp8Nuget
 			Index i = ^0;
 			Console.WriteLine(i); // ^0
 
+			// ^0 is syntactic sugar for Index constructor
+			i = new Index(0, fromEnd: true);
+
 			Range r = 3..^7;
 			Console.WriteLine(r); // 3..^7
+
+			// .. is syntactic sugar for Range constructor
+			r = new Range(new Index(3), new Index(7, fromEnd: true));
 		}
 
 		public void CustomTypes()

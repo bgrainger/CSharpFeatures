@@ -1,6 +1,7 @@
 #nullable enable
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CSharp8Framework
 {
@@ -44,5 +45,53 @@ namespace CSharp8Framework
 			string?[] arrayOfNullableString = new string?[] { null };
 			string?[]? nullableArrayOfNullableString = nullableListOfNullableString?.ToArray();
 		}
+
+		[return: MaybeNull]
+		public static T FirstOrDefault<T>(IEnumerable<T> source)
+		{
+			using var enumerator = source.GetEnumerator();
+			return enumerator.MoveNext() ? enumerator.Current : default;
+		}
+
+		public static T? FirstOrDefault2<T>(IEnumerable<T?> source) where T : struct
+		{
+			using var enumerator = source.GetEnumerator();
+			return enumerator.MoveNext() ? enumerator.Current : default;
+		}
+
+		public static T? FirstOrDefault2<T>(IEnumerable<T?> source) where T : class
+		{
+			using var enumerator = source.GetEnumerator();
+			return enumerator.MoveNext() ? enumerator.Current : default;
+		}
+
+		public static bool Any<T>(IEnumerable<T> source, Func<T, bool> test)
+			where T : notnull
+		{
+			foreach (var t in source)
+				if (test(t))
+					return true;
+			return false;
+		}
+	}
+}
+
+namespace System.Diagnostics.CodeAnalysis
+{
+	/// <summary>
+	///     Specifies that an output may be <see langword="null"/> even if the
+	///     corresponding type disallows it.
+	/// </summary>
+	[AttributeUsage(
+		AttributeTargets.Field | AttributeTargets.Parameter |
+		AttributeTargets.Property | AttributeTargets.ReturnValue,
+		Inherited = false
+	)]
+	internal sealed class MaybeNullAttribute : Attribute
+	{
+		/// <summary>
+		///     Initializes a new instance of the <see cref="MaybeNullAttribute"/> class.
+		/// </summary>
+		public MaybeNullAttribute() { }
 	}
 }
