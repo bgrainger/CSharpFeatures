@@ -10,7 +10,7 @@
 		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="1.0.0" />
 		<PackageReference Include="System.Memory" Version="4.5.3" />
 		<PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.3" />
-		<PackageReference Include="IndexRange" Version="1.0.0-beta1" />
+		<PackageReference Include="IndexRange" Version="1.0.0-beta2" />
 	</ItemGroup>
 
 </Project>
