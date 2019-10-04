@@ -2,10 +2,6 @@ using System;
 
 namespace CSharp8Framework
 {
-	public class ReadonlyStructMember
-	{
-	}
-
 	// Not a "readonly struct", but has "readonly" members
 	public struct Point
 	{

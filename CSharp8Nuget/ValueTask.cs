@@ -101,9 +101,8 @@ namespace CSharp8Nuget
 		{
 			ValueTask<int> valueTask = GetValueTaskAsync();
 
-			var task = valueTask.AsTask();
-
 			// DO NOT DO THIS
+			var task = valueTask.AsTask();
 			var result = await valueTask;
 			var doubleCheckResult = await task;
 		}

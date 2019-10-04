@@ -70,7 +70,7 @@ namespace CSharp8Framework
 				{ Year: 2019 } => "this year",
 				{ Month: 10 } => "October",
 				{ DayOfWeek: DayOfWeek.Monday } => "Monday",
-				{ DayOfWeek: DayOfWeek.Friday, Day: 13 } => "Friday the 13th",
+				{ DayOfWeek: DayOfWeek.Friday, Day: 13 } => throw new NotSupportedException("Friday the 13th"),
 				{ Month: 12, Day: 25 } => "Christmas",
 				// { Month: 1, Day: 1 } => "New Year's Day", // error CS8510: The pattern has already been handled by a previous arm of the switch expression.
 				{ Offset: { Hours: 0, Minutes: 0 } } => "UTC",

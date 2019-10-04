@@ -80,7 +80,7 @@ namespace CSharp8Nuget
 
 		public IAsyncEnumerable<int> ManualImplementation(int count) => new AsyncEnumerable(count);
 
-		class AsyncEnumerable : IAsyncEnumerable<int>
+		public class AsyncEnumerable : IAsyncEnumerable<int>
 		{
 			public AsyncEnumerable(int count) => m_count = count;
 
@@ -90,7 +90,7 @@ namespace CSharp8Nuget
 			readonly int m_count;
 		}
 
-		class AsyncEnumerator : IAsyncEnumerator<int>
+		public class AsyncEnumerator : IAsyncEnumerator<int>
 		{
 			public AsyncEnumerator(int count, CancellationToken cancellationToken)
 			{

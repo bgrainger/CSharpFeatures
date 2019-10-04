@@ -38,7 +38,8 @@ namespace CSharp8Framework
 
 		public void NotAnonymous(CancellationToken token)
 		{
-			//  error CS1001: Identifier expected
+			// previously: using (token.Register(() => Console.WriteLine("was cancelled")) { }
+			// error CS1001: Identifier expected
 			// using token.Register(() => Console.WriteLine("was cancelled"));
 
 			using var needsANameHere = token.Register(() => Console.WriteLine("was cancelled"));
@@ -46,6 +47,7 @@ namespace CSharp8Framework
 
 		public void CannotUseExistingVariable()
 		{
+			// previous: using (m_connection) { }
 			// error CS1001: Identifier expected
 			// using m_connection;
 			// m_connection.Open();
