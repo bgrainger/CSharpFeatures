@@ -49,13 +49,23 @@ namespace CSharp8Nuget
 			range = str[16..]; // "fox"
 			range = str[..]; // "the quick brown fox";
 
+			Console.WriteLine(object.ReferenceEquals(range, str)); // True
+
+			// never write "collection.Length - 1" again
+			var lastCharacter = str[str.Length - 1];
+			lastCharacter = str[^1];
+
 			// remove first character
 			str = str[1..];
 
 			// remove last character
 			str = str[..^1];
 
-			Console.WriteLine(object.ReferenceEquals(range, str)); // True
+			// divide string in thirds
+			var length = str.Length / 3;
+			var first = str[0..length];
+			var second = str[length..^length];
+			var third = str[^length..];
 		}
 
 		public void Variables()
