@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharp8Framework", "CSharp8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharp8Nuget", "CSharp8Nuget\CSharp8Nuget.csproj", "{B6838EBC-8AFB-4F13-969F-B7AB685AA414}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharp9Framework", "CSharp9Framework\CSharp9Framework.csproj", "{86E64C70-FCA9-4D29-976D-5C8A0C5CAC42}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{B6838EBC-8AFB-4F13-969F-B7AB685AA414}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6838EBC-8AFB-4F13-969F-B7AB685AA414}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6838EBC-8AFB-4F13-969F-B7AB685AA414}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86E64C70-FCA9-4D29-976D-5C8A0C5CAC42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86E64C70-FCA9-4D29-976D-5C8A0C5CAC42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86E64C70-FCA9-4D29-976D-5C8A0C5CAC42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86E64C70-FCA9-4D29-976D-5C8A0C5CAC42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
