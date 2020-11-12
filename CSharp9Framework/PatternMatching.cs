@@ -24,7 +24,7 @@ namespace CSharp9Framework
 				FileStream { IsAsync: true } => true,
 				MemoryStream => false,
 				NetworkStream => true,
-				DeflateStream d => SwitchOnTypeCSharp8(d.BaseStream),
+				DeflateStream d => SwitchOnType(d.BaseStream),
 				_ => false,
 			};
 
