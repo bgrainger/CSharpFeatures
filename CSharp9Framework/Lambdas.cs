@@ -18,5 +18,10 @@ namespace CSharp9Framework
 			static bool IsMultipleOfThree(int x) => x % 3 == 0;
 			static bool IsMultipleOfFive(int x) => x % 5 == 0;
 		}
+
+		public void LambdaDiscards(IEnumerable<object> first, IEnumerable<object> second)
+		{
+			first.Zip(second, (_, _) => 42);
+		}
 	}
 }
