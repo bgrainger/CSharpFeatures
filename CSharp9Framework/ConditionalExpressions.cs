@@ -13,10 +13,11 @@ namespace CSharp9Framework
 
 		public void NullCoalescing(List<int> list)
 		{
-			IEnumerable<int> seq1 = list is null ? list : Array.Empty<int>();
-
 			// error CS0019: Operator '??' cannot be applied to operands of type 'List<int>' and 'int[]'
 			// IEnumerable<int> seq2 = list ?? Array.Empty<int>();
+
+			IEnumerable<int> seq1 = list is null ? list : Array.Empty<int>();
+
 			IEnumerable<int> seq2 = (IEnumerable<int>) list ?? Array.Empty<int>();
 		}
 	}
