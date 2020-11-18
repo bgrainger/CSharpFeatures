@@ -24,7 +24,6 @@ namespace CSharp9Framework
 
 		public void AttributesOnLocalMethods()
 		{
-			// [MaybeNull] in netstandard2.1, .NET 5.0
 			[return: MarshalAs(UnmanagedType.Bool)]
 			static bool ReturnTrue() => true;
 		}
