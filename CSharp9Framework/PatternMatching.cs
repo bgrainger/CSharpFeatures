@@ -28,6 +28,15 @@ namespace CSharp9Framework
 				_ => false,
 			};
 
+		// relational operators on constants
+		public string Describe(int num) =>
+			num switch
+			{
+				0 => "zero",
+				< 0 => "negative",
+				> 0 => "positive",
+			};
+
 		public string SwitchOnTupleCSharp8(string input)
 		{
 			var success = int.TryParse(input, out var value);
