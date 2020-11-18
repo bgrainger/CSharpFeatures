@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace CSharp9Framework
 {
@@ -18,6 +20,13 @@ namespace CSharp9Framework
 		public void LambdaDiscards(IEnumerable<object> first, IEnumerable<object> second)
 		{
 			first.Zip(second, (_, _) => 42);
+		}
+
+		public void AttributesOnLocalMethods()
+		{
+			// [MaybeNull] in netstandard2.1, .NET 5.0
+			[return: MarshalAs(UnmanagedType.Bool)]
+			static bool ReturnTrue() => true;
 		}
 	}
 }
