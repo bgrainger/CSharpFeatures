@@ -1,13 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace System.Runtime.CompilerServices
-{
-	public class IsExternalInit { }
-}
 
 namespace CSharp9Framework
 {
@@ -50,14 +41,6 @@ namespace CSharp9Framework
 			// bob.Name = "John";
 		}
 
-		/*
-		 * An instance property containing an init accessor is considered settable in the following circumstances, except when in a local function or lambda:
-		 * During an object initializer
-		 * During a with expression initializer
-		 * Inside an instance constructor of the containing or derived type, on this or base
-		 * Inside the init accessor of any property, on this or base
-		 * Inside attribute usages with named parameters
-		 */
 		class SetReadonlyProperties
 		{
 			readonly string _name; // the "init;" syntax generates a readonly field
@@ -69,6 +52,14 @@ namespace CSharp9Framework
 			}
 		}
 
+		/*
+		 * An instance property containing an init accessor is considered settable in the following circumstances, except when in a local function or lambda:
+		 * During an object initializer
+		 * During a with expression initializer
+		 * Inside an instance constructor of the containing or derived type, on this or base
+		 * Inside the init accessor of any property, on this or base
+		 * Inside attribute usages with named parameters
+		 */
 		class Derived : SetReadonlyProperties
 		{
 			readonly int _age;
@@ -89,4 +80,9 @@ namespace CSharp9Framework
 			var derived = new Derived { Age = 10 };
 		}
 	}
+}
+
+namespace System.Runtime.CompilerServices
+{
+	public class IsExternalInit { }
 }
