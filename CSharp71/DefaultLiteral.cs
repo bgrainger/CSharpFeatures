@@ -58,11 +58,10 @@ namespace CSharp71
 			if (value == default) { }
 		}
 
-		public static void As()
+		public static void AsIsAnError()
 		{
-			// only allowed for reference types
-			// warning CS0458: The result of the expression is always 'null' of type 'IReadOnlyCollection<string>'
-			var collection = default as IReadOnlyCollection<string>;
+			// error CS8716: There is no target type for the default literal.
+			// var collection = default as IReadOnlyCollection<string>;
 		}
 
 		public static void SwitchStatement(string value)
