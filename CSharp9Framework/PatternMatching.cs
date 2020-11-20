@@ -72,5 +72,29 @@ namespace CSharp9Framework
 
 		public static bool IsLetterOrSeparator(char c) =>
 			c is (>= 'a' and <= 'z') or (>= 'A' and <= 'Z') or '.' or ',';
+
+		public bool IsValidIndex(int index, object[] array)
+		{
+			// error CS0150: A constant value is expected
+			// return index is > 0 and < array.Length;
+
+			return index > 0 && index < array.Length;
+		}
+
+		public bool IsValidPercentage(object value) => value is > 0 and < 100;
+
+		public void ImplicitTypeTest()
+		{
+			IsValidPercentage(1); // True
+			IsValidPercentage(1.0); // False
+		}
+
+		public bool IsValidPercentage2(double value) => value is > 0 and < 100;
+
+		public void TypePromotionCanHappen()
+		{
+			IsValidPercentage2(1); // True
+			IsValidPercentage2(1.0); // True
+		}
 	}
 }

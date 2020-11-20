@@ -72,6 +72,8 @@ namespace CSharp9Framework
 			Console.WriteLine(p1.Equals(p2));
 		}
 
+		// "Positional" records
+
 		public record PointC(int X, int Y);
 
 		public void ConstructAndSet()
@@ -87,6 +89,15 @@ namespace CSharp9Framework
 			// need to force cloning
 			var p4 = p with { };
 		}
+
+		public record PointD(int X = 0, int Y = 0);
+
+		public void ConstructWithDefaultParameters()
+		{
+			var p = new PointD();
+			var p2 = p with { X = 2 };
+		}
+
 		public Point WithOnExpressions(Point p, Point3D p3d) =>
 			(p ?? p3d) with { X = 100 };
 
@@ -95,6 +106,8 @@ namespace CSharp9Framework
 			var p = new PointC(1, 2);
 			var (x, y) = p;
 		}
+
+		// Inheritance
 
 		public record PointC3D(int X, int Y, int Z) : PointC(X, Y);
 
@@ -114,6 +127,8 @@ namespace CSharp9Framework
 			var (a, b, z) = p2;
 		}
 
+		// Base class protected constructors
+
 		public record PointE3D : PointC
 		{
 			public int Z { get; }
@@ -128,6 +143,31 @@ namespace CSharp9Framework
 			{
 				Z = z;
 			}
+		}
+
+		// Customise equality
+
+		public record DistancePoint(int X, int Y)
+		{
+			public double DistanceFromOrigin => Math.Sqrt(X * X + Y * Y);
+
+			public virtual bool Equals(DistancePoint other) => DistanceFromOrigin == other?.DistanceFromOrigin;
+			public override int GetHashCode() => DistanceFromOrigin.GetHashCode();
+		}
+
+		public void CustomEquality()
+		{
+			var x = new DistancePoint(1, 0);
+			var y = new DistancePoint(0, 1);
+
+			Console.WriteLine(x.Equals(y)); // True
+			Console.WriteLine(x == y); // True
+
+			object objX = x;
+			object objNull = null;
+
+			Console.WriteLine(x.Equals(objX)); // True
+			Console.WriteLine(x.Equals(objNull)); // False
 		}
 	}
 }
