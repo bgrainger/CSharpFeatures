@@ -4,6 +4,22 @@ namespace CSharp9Net5
 {
 	public class NativeIntegers
 	{
+		public void NativeInts()
+		{
+			System.IntPtr intptr = IntPtr.Zero;
+			nint zero = 0;
+
+			intptr += 2;
+			zero += 2;
+
+			// error CS0019: Operator '-' cannot be applied to operands of type 'IntPtr' and 'IntPtr'
+			// var diff = intptr - IntPtr.Zero;
+			var diff = zero - (nint) 1;
+
+			// unsigned native ints
+			nuint unsgnd = UIntPtr.Zero;
+		}
+
 		public void RuntimeConstants()
 		{
 			const int constantInt = int.MaxValue;
