@@ -9,5 +9,6 @@
 
   <ItemGroup>
     <Using Include="System.Collections.ObjectModel"/>
+    <Using Remove="System.Threading" />
   </ItemGroup>
 </Project>
