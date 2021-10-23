@@ -4,9 +4,12 @@ internal class WithExpressions
 {
 	public void Example()
 	{
-		var person1 = ValueTuple.Create("John", 23);
+		// can apply 'with' to record structs
+		var origin = new Point2D();
+		var point = origin with { X = 1, Y = 2 };
 
 		// C# 10 allows the LHS to be any struct
+		var person1 = ValueTuple.Create("John", 23);
 		var person2 = person1 with { Item1 = "Mary" };
 
 		// can use tuple element names
