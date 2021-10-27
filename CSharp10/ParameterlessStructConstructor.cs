@@ -2,7 +2,7 @@ namespace CSharp10;
 
 struct ParameterlessStructConstructor
 {
-	// structs can now have constructors
+	// structs can now have parameterless constructors
 	public ParameterlessStructConstructor()
 	{
 		Name = "Struct with no name";
