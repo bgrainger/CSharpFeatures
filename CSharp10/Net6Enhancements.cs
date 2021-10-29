@@ -16,13 +16,13 @@ internal class Net6Enhancements
 
 		var onePerCategory = Products.DistinctBy(x => x.Category);
 
-		var desiredPrices = new[] { 9.95m, 49.95m, 99.95m };
-		var productsWithDesiredPrices = Products.IntersectBy(desiredPrices, x => x.Price);
-		var productsWithoutDesiredPrices = Products.ExceptBy(desiredPrices, x => x.Price);
-
 		var cheap = Products.Where(x => x.Price < 10m);
 		var ebooks = Products.Where(x => x.Category == "Ebook");
 		var cheapOrEbook = cheap.UnionBy(ebooks, x => x.Sku);
+
+		var desiredPrices = new[] { 9.95m, 49.95m, 99.95m };
+		var productsWithDesiredPrices = Products.IntersectBy(desiredPrices, x => x.Price);
+		var productsWithoutDesiredPrices = Products.ExceptBy(desiredPrices, x => x.Price);
 
 		// similar to EnumerateBatches, but returns arrays
 		var batches = Products.Chunk(100);
@@ -32,10 +32,12 @@ internal class Net6Enhancements
 
 		if (Products.TryGetNonEnumeratedCount(out var count))
 		{
-			// determined in constant time
+			// determined without enumeration
 		}
 
+		// provide a default(T) item
 		var anEbook = Products.FirstOrDefault(x => x.Category == "Ebook", new("Fire Someone Today", "123", "Ebook", 0.99m));
+		anEbook = Products.FirstOrDefault(x => x.Category == "Ebook") ?? new("Fire Someone Today", "123", "Ebook", 0.99m);
 		// same for LastOrDefault, SingleOrDefault
 	}
 
@@ -63,6 +65,9 @@ internal class Net6Enhancements
 	{
 		ArgumentNullException.ThrowIfNull(name);
 		ArgumentNullException.ThrowIfNull(description);
+
+		// works using [CallerArgumentExpression] to supply the value to the defaulted second parameter
+		ArgumentNullException.ThrowIfNull(description, "description");
 	}
 
 	public async Task ParallelForEachAsync(CancellationToken cancellationToken)
