@@ -13,7 +13,11 @@ struct ParameterlessStructConstructor
 
 struct ParameterlessStructConstructor2
 {
-	// structs can now have property/field initializers, which synthesize a default constructor
+	public ParameterlessStructConstructor2()
+	{
+	}
+
+	// structs can now have property/field initializers
 	public string Name { get; } = "A default name";
 }
 
