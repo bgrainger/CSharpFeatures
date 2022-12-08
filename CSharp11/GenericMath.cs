@@ -88,4 +88,23 @@ public class StaticInterfaces
 		PrintSuccessors(new MyInt(3), 5);
 		PrintSuccessors(new MyChar('D'), 4);
 	}
+
+	public void Example2<T>(T input)
+		where T : INumber<T>
+	{
+		// lots of available properties and methods:
+		// https://learn.microsoft.com/en-us/dotnet/api/system.numerics.inumberbase-1?view=net-7.0
+		// https://learn.microsoft.com/en-us/dotnet/api/system.numerics.inumber-1?view=net-7.0
+		var zero = T.Zero;
+		var one = T.One;
+		var two = one + one;
+		var four = two + two;
+		var eight = four + four;
+		var ten = eight + two;
+
+		var eleven = T.CreateChecked(11);
+
+		var clamped = T.IsFinite(input) ? T.Clamp(input, one, eleven) : zero;
+		var max = T.Max(T.Zero, T.AdditiveIdentity);
+	}
 }
