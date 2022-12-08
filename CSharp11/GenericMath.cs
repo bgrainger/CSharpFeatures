@@ -95,6 +95,7 @@ public class StaticInterfaces
 		// lots of available properties and methods:
 		// https://learn.microsoft.com/en-us/dotnet/api/system.numerics.inumberbase-1?view=net-7.0
 		// https://learn.microsoft.com/en-us/dotnet/api/system.numerics.inumber-1?view=net-7.0
+		// https://github.com/dotnet/core/blob/main/release-notes/7.0/preview/api-diff/preview5/Microsoft.NETCore.App/7.0-preview5_System.md
 		var zero = T.Zero;
 		var one = T.One;
 		var two = one + one;
@@ -106,5 +107,19 @@ public class StaticInterfaces
 
 		var clamped = T.IsFinite(input) ? T.Clamp(input, one, eleven) : zero;
 		var max = T.Max(T.Zero, T.AdditiveIdentity);
+	}
+
+	public void UnsignedShift()
+	{
+		// 0x8080_8080
+		int input = -2139062144;
+
+		// 0xF808_0808
+		var signedShift = input >> 2;
+
+		// 0x0808_0808
+		var unsignedShift = input >>> 2;
+
+		var csharp10 = (int)(((uint)input) >> 4);
 	}
 }
