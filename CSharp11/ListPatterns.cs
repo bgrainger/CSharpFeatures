@@ -31,7 +31,7 @@ public class ListPatterns
 			_ => value,
 		};
 
-	public string TrimBackquotes2(string value)
+	public string TrimBackquotesOld(string value)
 	{
 		if (value is { Length: >= 2 } && value[0] == '`' && value[^1] == '`')
 			return value[1..^1];
@@ -50,4 +50,22 @@ public class ListPatterns
 			[< 0, .. { Length: > 0 } middle, > 0] => IsPartitioned(middle),
 			_ => false,
 		};
+
+	public int StringMatching(ReadOnlySpan<char> str) =>
+		str switch
+		{
+			"Hello" => 0,
+			"Goodbye" => 1,
+			_ => 2,
+		};
+
+	// The previous method generates more efficient code than using list patterns.
+	public int SpanCharMatching(ReadOnlySpan<char> str) =>
+		str switch
+		{
+			['H', 'e', 'l', 'l', 'o'] => 0,
+			['G', 'o', 'o', 'd', 'b', 'y', 'e'] => 1,
+			_ => 2,
+		};
+
 }
