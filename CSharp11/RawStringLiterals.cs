@@ -84,12 +84,14 @@ WHERE ID = 1;
 		// interpolated raw strings
 		Console.WriteLine($"""{interpolation} "via" {placeholders}""");
 
+		// the number of parentheses match the number of dollar signs
 		Console.WriteLine($$"""
 			{
 				"{{interpolation}}": "{{placeholders}}"
 			}
 			""");
 
+		// increase the number of dollars and quotes to be greater than what's used in the string
 		Console.WriteLine($$$""""
 			Console.WriteLine($$"""
 			{
@@ -97,5 +99,16 @@ WHERE ID = 1;
 			}
 			{{{interpolation}}} "via" {{{placeholders}}}
 			"""");
+
+		// interpolation expressions can now span new lines
+		Console.WriteLine($"{interpolation switch
+		{
+			"interpolation" => "placeholders",
+			_ => "unknown"
+		}} \"via\" {placeholders switch
+		{
+			"placeholders" => "interpolation",
+			_ => "unknown"
+		}}");
 	}
 }
