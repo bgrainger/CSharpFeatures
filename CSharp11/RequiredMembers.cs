@@ -38,7 +38,7 @@ internal class MyWebApplication
 	{
 		var builder = WebApplication.CreateBuilder();
 
-		builder.Configuration.AddInMemoryCollection(new[] { new KeyValuePair<string, string>("test", "value") });
+		builder.Configuration.AddInMemoryCollection(new[] { new KeyValuePair<string, string?>("test", "value") });
 
 		builder.Services.AddOptions<AppSettings1>().BindConfiguration("").ValidateDataAnnotations();
 		builder.Services.AddOptions<AppSettings2>().BindConfiguration("").ValidateDataAnnotations();
