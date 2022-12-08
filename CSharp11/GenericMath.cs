@@ -115,10 +115,10 @@ public class StaticInterfaces
 		int input = -2139062144;
 
 		// 0xF808_0808
-		var signedShift = input >> 2;
+		var signedShift = input >> 4;
 
 		// 0x0808_0808
-		var unsignedShift = input >>> 2;
+		var unsignedShift = input >>> 4;
 
 		var csharp10 = (int)(((uint)input) >> 4);
 	}
