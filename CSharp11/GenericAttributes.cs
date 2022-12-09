@@ -13,6 +13,19 @@ internal class GenericAttributes
 	public IActionResult OtherMethod() => default!;
 }
 
+internal class GenericType<T>
+{
+	// generic attribute needs to be fully constructed; this is not valid:
+	// [ProducesResponseType2<T>(200)]
+	public IActionResult SomeMethod() => default!;
+
+	// can't use types that aren't directly represented in metadata; use the underlying type instead
+	// [ProducesResponseType2<string?>(200)] -- use string
+	// [ProducesResponseType2<dynamic>(200)] -- use object
+	// [ProducesResponseType2<(int X, int Y)>(200)] -- use ValueTuple<int, int>
+	public IActionResult OtherMethod() => default!;
+}
+
 [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
 public class ProducesResponseType2Attribute<T> : Attribute
 //	where T : SuccessDto
@@ -24,4 +37,3 @@ public class ProducesResponseType2Attribute<T> : Attribute
 
 public record SuccessDto();
 public record ErrorDto();
-
