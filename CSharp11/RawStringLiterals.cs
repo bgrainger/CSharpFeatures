@@ -60,7 +60,7 @@ SELECT *
 			WHERE id = 1;
 			""";
 /* Output:
- SELECT *
+SELECT *
 FROM Customers
 WHERE ID = 1;
 */
