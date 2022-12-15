@@ -24,6 +24,21 @@ public class ListPatterns
 		_ = list is [< 2, <= 2, >= 3, > 3]; // true
 	}
 
+	class VirtualList
+	{
+		public VirtualList(int length) => Length = length;
+		public int this[Index index] => index.IsFromEnd ? Length - index.Value : index.Value;
+		public int Length { get; }
+	}
+
+	public void TestVirtualList()
+	{
+		var list = new VirtualList(3);
+		_ = list is [0, 1, 2]; // true
+
+		_ = new VirtualList(4) is [.., 3]; // true
+	}
+
 	public string TrimBackquotes(string value) =>
 		value switch
 		{
