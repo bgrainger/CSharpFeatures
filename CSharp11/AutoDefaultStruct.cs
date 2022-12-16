@@ -1,7 +1,10 @@
 namespace CSharp11;
 
-struct AutoDefaultStruct
+readonly struct AutoDefaultStruct
 {
+	public string Name { get; }
+	public int Age { get; }
+
 	public AutoDefaultStruct()
 	{
 		Name = "No name";
@@ -10,7 +13,4 @@ struct AutoDefaultStruct
 	}
 
 	public AutoDefaultStruct(string name) => Name = name;
-
-	public string Name { get; }
-	public int Age { get; }
 }

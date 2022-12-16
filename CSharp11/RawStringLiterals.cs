@@ -84,7 +84,7 @@ WHERE ID = 1;
 		// interpolated raw strings
 		Console.WriteLine($"""{interpolation} "via" {placeholders}""");
 
-		// the number of parentheses match the number of dollar signs
+		// the number of curly braces match the number of dollar signs
 		Console.WriteLine($$"""
 			{
 				"{{interpolation}}": "{{placeholders}}"

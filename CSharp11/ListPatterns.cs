@@ -18,10 +18,11 @@ public class ListPatterns
 
 		// ... or the middle
 		_ = list is [1, .., 4]; // true
+		_ = list is [1, 2, .., 3, 4]; // true
 
 		// use patterns within the list
 		_ = list is [1 or 3, 2 or 4, 1 or 3, 2 or 4]; // true
-		_ = list is [< 2, <= 2, >= 3, > 3]; // true
+		_ = list is [< 2 and int firstElement, <= 2, >= 3, > 3]; // true
 	}
 
 	class VirtualList
@@ -82,5 +83,4 @@ public class ListPatterns
 			['G', 'o', 'o', 'd', 'b', 'y', 'e'] => 1,
 			_ => 2,
 		};
-
 }

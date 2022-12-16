@@ -85,7 +85,10 @@ public class StaticInterfaces
 
 	public void Example()
 	{
+		// 3 4 5 6 7
 		PrintSuccessors(new MyInt(3), 5);
+
+		// D E F G
 		PrintSuccessors(new MyChar('D'), 4);
 	}
 
