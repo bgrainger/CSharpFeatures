@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Immutable;
-using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 
 namespace CSharp12;
@@ -120,5 +119,19 @@ internal class CollectionExpressions
 			..(option1 ? enumerable1 : []),
 			..(option2 ? enumerable2 : []),
 		];
+	}
+
+	public void SpreadDuckTyping(int value)
+	{
+		bool[] array = [.. value];
+	}
+}
+
+public static class IntExtensions
+{
+	public static IEnumerator<bool> GetEnumerator(this int value)
+	{
+		for (var shift = 31; shift >= 0; shift--)
+			yield return (value & (1 << shift)) != 0;
 	}
 }
