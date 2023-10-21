@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 
 namespace CSharp12;
@@ -8,8 +9,8 @@ internal class CollectionExpressions
 {
 	public void InitializeDifferentTypesEmpty()
 	{
-		int[] array = [];
-		List<int> list = [];
+		int[] array = []; // Array.Empty<int>()
+		List<int> list = []; // new List<int>()
 		Dictionary<int, string> dictionary = [];
 		HashSet<int> hashSet = [];
 		LinkedList<int> linkedList = [];
@@ -21,6 +22,14 @@ internal class CollectionExpressions
 
 		Span<int> span = [];
 		ReadOnlySpan<int> readOnlySpan = [];
+		IEnumerable<int> enumerable = [];
+		IList<int> listInterface = [];
+
+		// error CS7036: There is no argument given that corresponds to the required parameter 'list' of 'ReadOnlyCollection<int>.ReadOnlyCollection(IList<int>)'
+		// ReadOnlyCollection<int> readOnlyCollection = [];
+
+		// error CS9176: There is no target type for the collection expression.
+		// var unknown = [];
 	}
 
 	public void InitializeDifferentTypesWithAdd()
@@ -87,5 +96,29 @@ internal class CollectionExpressions
 	private class MyCustomType3Builder
 	{
 		public static MyCustomType3 Create(ReadOnlySpan<int> span) => default;
+	}
+
+	public void Spread()
+	{
+		ReadOnlySpan<int> span1 = [1, 2, 3];
+		ReadOnlySpan<int> span2 = [4, 5, 6, 7];
+
+		int[] array = [.. span1];
+		List<int> list = [.. span1, .. span2];
+		HashSet<int> hashSet = [1, .. span1, 2, .. span2, 3];
+	}
+
+	public void SpreadEnumerable(IEnumerable<int> enumerable)
+	{
+		// expands to new List(); foreach { Add }; ToArray
+		int[] array = [.. enumerable];
+	}
+
+	public void SpreadOptional(bool option1, IEnumerable<int> enumerable1, bool option2, IEnumerable<int> enumerable2)
+	{
+		int[] array = [
+			..(option1 ? enumerable1 : []),
+			..(option2 ? enumerable2 : []),
+		];
 	}
 }
