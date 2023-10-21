@@ -3,8 +3,10 @@ using System.Text;
 
 namespace CSharp12;
 
-internal sealed record class PointRecord(int X, int Y);
+// Recall record classes from C# 9:
+internal sealed record PointRecord(int X, int Y);
 
+// Which are equivalent to: (using a "sealed record" to keep it shorter)
 internal sealed class GeneratedPointRecord : IEquatable<GeneratedPointRecord>
 {
 	public int X { get; init; }
@@ -70,8 +72,10 @@ internal sealed class GeneratedPointRecord : IEquatable<GeneratedPointRecord>
 	}
 }
 
+// Primary constructors introduce a new syntax that only creates a constructor and pseudo-fields:
 internal class Point(int x, int y);
 
+// It's roughly equivalent to: (except that the fields don't actually get created if they're not used)
 internal class GeneratedPoint
 {
 	private int _xField;
@@ -84,18 +88,21 @@ internal class GeneratedPoint
 	}
 }
 
+// Typical usage would be initializing a property:
 internal class PointB(int x, int y)
 {
 	public int X { get; } = x;
 	public int Y { get; } = y;
 }
 
+// The property initialization can be a complex expression:
 internal class PolarPointB(int x, int y)
 {
 	public double Radius { get; } = Math.Sqrt(x * x + y * y);
 	public double Angle { get; } = Math.Atan2(y, x);
 }
 
+// Warning: don't use the constructor parameter in a method body as well as a property initializer because that will double the storage.
 internal class PointC(int x, int y, int z)
 {
 	public int X { get; } = x; // warning CS9124: Parameter 'int x' is captured into the state of the enclosing type and its value is also used to initialize a field, property, or event.
@@ -105,6 +112,7 @@ internal class PointC(int x, int y, int z)
 		$"({x},{Y},{z})";
 }
 
+// Doing that will generate this:
 internal class GeneratedPointC
 {
 	public GeneratedPointC(int x, int y, int z)
@@ -126,6 +134,7 @@ internal class GeneratedPointC
 	private readonly int yProperty;
 }
 
+// You can use the constructor parameters as though they were auto-initialized fields:
 internal class PointD(int x, int y)
 {
 	public int X => x;
@@ -141,6 +150,7 @@ internal class PointD(int x, int y)
 	}
 }
 
+// Additional constructors can be added; they must call the primary constructor:
 internal class PointE(int x, int y)
 {
 	public PointE(int x, int y, int z)
@@ -161,6 +171,7 @@ internal class PointE(int x, int y)
 	public override string ToString() => $"({X},{y})";
 }
 
+// Call a base class constructor by passing arguments to it:
 internal class PointF(int x, int y, int z) : PointE(x, y)
 {
 	public int Z { get; } = z;
@@ -172,17 +183,14 @@ internal class PointF(int x, int y, int z) : PointE(x, y)
 	}
 }
 
+// Can also use primary constructors with structs:
 internal readonly struct StructConstructor(int x, int y)
 {
 	public int X { get; } = x;
 	public int Y { get; } = y;
 }
 
-internal interface ILogger
-{
-	void LogInformation(string message);
-}
-
+// Use case: DI for ASP.NET Core controllers
 internal class MyController(ILogger logger)
 {
 	[HttpGet]
@@ -193,5 +201,9 @@ internal class MyController(ILogger logger)
 	}
 }
 
+internal interface ILogger
+{
+	void LogInformation(string message);
+}
 internal class HttpGetAttribute() : Attribute;
 internal class ActionResult<T>(T t);
