@@ -43,8 +43,8 @@ internal class RefReadonlyParameters
 		// Reason 2: you want to require a variable, not a temporary (but don't mutate it)
 		// error CS1510: A ref or out value must be an assignable variable
 		// Console.WriteLine(DistanceUsingRefReadonly(ref default(ReadonlyPoint3D)));
-		IntRef intRef = default;
-		Console.WriteLine(Unsafe.IsNullRef(ref intRef.Value));
+		int value = 0;
+		Volatile.Read(ref value);
 	}
 
 	public void CanPassRefReadonlyWithIn()
