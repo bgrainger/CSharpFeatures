@@ -4,6 +4,7 @@ internal class Lambdas
 {
 	public void DefaultValue()
 	{
+		// lambda parameters can now have default values
 		var incrementBy = (int value, int increment = 1) => value + increment;
 
 		// like all C# default values, the default value from metadata is hard-coded in at the call site
@@ -13,6 +14,7 @@ internal class Lambdas
 
 	public void Params()
 	{
+		// lambdas can now have "params T[]" parameters
 		var sum = (params int[] values) => values.Sum();
 		Console.WriteLine(sum(1, 2, 3)); // 6
 	}

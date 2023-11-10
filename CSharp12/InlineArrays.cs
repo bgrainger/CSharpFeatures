@@ -75,9 +75,4 @@ internal class InlineArrays
 		// internal struct <>y__InlineArray2<T>
 		Span<char> compilerWillUseAnInlineArray = ['E', 'd'];
 	}
-
-	public void PassByReference(ref readonly Name50 name)
-	{
-		ref readonly char firstChar = ref name[0];
-	}
 }

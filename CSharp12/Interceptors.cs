@@ -47,11 +47,6 @@ namespace CSharp12
 		}
 	}
 
-	public static class DapperConnectionExtensions
-	{
-		public static IEnumerable<T> Query<T>(this DbConnection connection, string sql) => default;
-	}
-
 	static file class DapperGeneratedCode
 	{
 		[InterceptsLocation(@"C:\Code\Projects\CSharpFeatures\CSharp12\Interceptors.cs", line: 46, character: 28)]
@@ -71,6 +66,11 @@ namespace CSharp12
 			}
 			return results;
 		}
+	}
+
+	public static class DapperConnectionExtensions
+	{
+		public static IEnumerable<T> Query<T>(this DbConnection connection, string sql) => default;
 	}
 }
 

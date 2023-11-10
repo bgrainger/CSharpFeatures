@@ -27,13 +27,17 @@ internal class RefReadonlyParameters
 	static double DistanceUsingIn(in ReadonlyPoint3D point) => Math.Sqrt(point.X * point.X + point.Y * point.Y + point.Z & point.Z);
 	static double DistanceUsingRef(ref Point3D point) => Math.Sqrt(point.X * point.X + point.Y * point.Y + point.Z & point.Z);
 
+	// New in C# 12: 'ref readonly'
+	static double DistanceUsingRefReadonly(ref readonly Point3D point) => Math.Sqrt(point.X * point.X + point.Y * point.Y + point.Z & point.Z);
+	static double DistanceUsingRefReadonly(ref readonly ReadonlyPoint3D point) => Math.Sqrt(point.X * point.X + point.Y * point.Y + point.Z & point.Z);
+
 	public void RefReadonlyParameter()
 	{
 		var origin = default(Point3D);
 
 		Console.WriteLine(DistanceUsingRefReadonly(ref origin));
 
-		// Reason 1: not a breaking change if callsite already uses ref (e.g., was written before "in")
+		// Reason 1: not a breaking change if call site already uses ref (e.g., was written before "in")
 		// "in" => DistanceUsingIn([IsReadOnly] in Point3D point)
 		// "ref" => DistanceUsingRef(ref Point3D point)
 		// "ref readonly" => DistanceUsingRefReadonly([RequiresLocation, In] ref Point3D point)
@@ -68,12 +72,4 @@ internal class RefReadonlyParameters
 		Console.WriteLine(DistanceUsingRefReadonly(ref origin));
 		Console.WriteLine(DistanceUsingRefReadonly(in origin));
 	}
-
-	ref struct IntRef
-	{
-		public ref int Value;
-	}
-
-	static double DistanceUsingRefReadonly(ref readonly Point3D point) => Math.Sqrt(point.X * point.X + point.Y * point.Y + point.Z & point.Z);
-	static double DistanceUsingRefReadonly(ref readonly ReadonlyPoint3D point) => Math.Sqrt(point.X * point.X + point.Y * point.Y + point.Z & point.Z);
 }
