@@ -183,6 +183,14 @@ internal class PointF(int x, int y, int z) : PointE(x, y)
 	}
 }
 
+internal class ReadonlyFields(int a, int b, int c, int d)
+{
+	public int A => a; // 'a' is stored in a mutable field
+	public int B { get; } = b; // use property initialization syntax to create a readonly field (for the property)
+	private int C { get; } = c; // can use private properties to create readonly fields
+	private readonly int m_d = d; // or use a readonly field initialized from the constructor argument
+}
+
 // Can also use primary constructors with structs:
 internal readonly struct StructConstructor(int x, int y)
 {
