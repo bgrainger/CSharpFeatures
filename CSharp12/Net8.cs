@@ -105,8 +105,11 @@ internal class Net8
 	[UnsafeAccessor(UnsafeAccessorKind.Method, Name = "ThisMethodDoesNotExist")]
 	private static extern void MissingMethod(ref DateTime dateTime);
 
-	// ... and much more; see Stephen Toub's .NET post for Vector512, IUtf8SpanFormattable, CompositeFormat, JsonNamingPolicy, SearchValues, Parallel.ForAsync, Ascii, ConfigureAwaitOptions, and more
+	// ... and much more; see Stephen Toub's .NET post for Vector512, IUtf8SpanFormattable, CompositeFormat, JsonNamingPolicy, SearchValues, Parallel.ForAsync, Ascii, and more
 	// https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/
+
+	// ... and Stephen Cleary for ConfigureAwaitOptions
+	// https://blog.stephencleary.com/2023/11/configureawait-in-net-8.html
 
 	public sealed record class Card(int Suit, int Value);
 }
