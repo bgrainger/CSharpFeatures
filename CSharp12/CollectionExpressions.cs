@@ -102,15 +102,15 @@ internal class CollectionExpressions
 		ReadOnlySpan<int> span1 = [1, 2, 3];
 		ReadOnlySpan<int> span2 = [4, 5, 6, 7];
 
-		int[] array = [.. span1];
-		List<int> list = [.. span1, .. span2];
-		HashSet<int> hashSet = [1, .. span1, 2, .. span2, 3];
+		int[] array = [..span1];
+		List<int> list = [..span1, ..span2];
+		HashSet<int> hashSet = [1, ..span1, 2, ..span2, 3];
 	}
 
 	public void SpreadEnumerable(IEnumerable<int> enumerable)
 	{
 		// expands to new List(); foreach { Add }; ToArray
-		int[] array = [.. enumerable];
+		int[] array = [..enumerable];
 	}
 
 	public void SpreadOptional(bool option1, IEnumerable<int> enumerable1, bool option2, IEnumerable<int> enumerable2)
@@ -123,7 +123,7 @@ internal class CollectionExpressions
 
 	public void SpreadDuckTyping(int value)
 	{
-		bool[] array = [.. value];
+		bool[] array = [..value];
 	}
 }
 
