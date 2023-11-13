@@ -53,10 +53,13 @@ internal class CollectionExpressions
 		ImmutableArray<int> immutableArray = [1, 2, 3];
 
 		// via [CollectionBuilder] - ImmutableHashSet.Create<int>(readOnlySpan)
-		ImmutableHashSet<int> immutableHashSet = [1, 2, 3]; 
+		ImmutableHashSet<int> immutableHashSet = [1, 2, 3];
 
 		// didn't make C# 12
 		// Dictionary<int, string> dictionary = [1: "one"];
+
+		// can't use this because Add(key, value) takes two parameters, not one (and explicit interface implementations aren't considered)
+		// Dictionary<int, string> dictionary = [new KeyValuePair<int, string>(1, "one")];
 
 		// no Add method and no [CollectionBuilder] (see below)
 		// LinkedList<int> linkedList = [1, 2, 3];
