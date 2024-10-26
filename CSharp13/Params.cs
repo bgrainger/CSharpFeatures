@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 namespace CSharp13;
 
 internal class Params
@@ -88,23 +90,30 @@ internal class Params
 		// was this whole feature even necessary when you can just use collection expressions?
 		ParamsOverload([1, 2, 3, 4, 5]);
 
+		// picks the int[] overload because it's the best match
+		int[] values = [1, 2, 3, 4, 5];
+		ParamsOverload(values);
+
 		// Recommendations:
 		// - add "params ReadOnlySpan<T>" overloads (or params IReadOnlyList<T>) to methods that take "params T[]"
-		// - consider removing "params" from the "T[]" method
+		// - consider removing "params" from the "T[]" overload
+		// - consider adding OverloadResolutionPriority to the ReadOnlySpan<T> overload
 	}
 
+	// [OverloadResolutionPriority(2)]
 	private static void ParamsOverload(/* [ParamArray] */ params int[] values)
 	{
-		Console.WriteLine(string.Join(", ", values));
+		Console.WriteLine("Array");
 	}
 
 	private static void ParamsOverload(/* [ParamCollection] */ params IEnumerable<int> values)
 	{
-		Console.WriteLine(string.Join(", ", values.ToArray()));
+		Console.WriteLine("IEnumerable<int>");
 	}
 
+	// [OverloadResolutionPriority(1)]
 	private static void ParamsOverload(/* [ParamCollection] */ params ReadOnlySpan<int> values)
 	{
-		Console.WriteLine(string.Join(", ", values.ToArray()));
+		Console.WriteLine("ReadOnlySpan<int>");
 	}
 }
