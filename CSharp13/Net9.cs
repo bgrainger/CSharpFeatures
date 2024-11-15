@@ -40,6 +40,13 @@ internal partial class Net9
 			{ "three", 3 },
 		};
 
+		var sortedList = new SortedList<string, int>()
+		{
+			{ "one", 1 },
+			{ "two", 2 },
+			{ "three", 3 },
+		};
+
 		var orderedDictionary = new OrderedDictionary<string, int>()
 		{
 			{ "one", 1 },
@@ -52,6 +59,7 @@ internal partial class Net9
 		Console.WriteLine(orderedDictionary.GetAt(2)); // ["three", 3]
 
 		Console.WriteLine(string.Join(", ", sortedDictionary)); // [one, 1], [three, 3], [two, 2]
+		Console.WriteLine(string.Join(", ", sortedList)); // [one, 1], [three, 3], [two, 2]
 		Console.WriteLine(string.Join(", ", orderedDictionary)); // [one, 1], [two, 2], [three, 3]
 	}
 
