@@ -87,12 +87,16 @@ internal class Params
 		// picks the best overload of all the 'params' methods
 		ParamsOverload(1, 2, 3, 4, 5);
 		
-		// was this whole feature even necessary when you can just use collection expressions?
-		ParamsOverload([1, 2, 3, 4, 5]);
-
 		// picks the int[] overload because it's the best match
 		int[] values = [1, 2, 3, 4, 5];
 		ParamsOverload(values);
+
+		// was this whole feature even necessary when you can just use collection expressions?
+		ParamsOverload([1, 2, 3, 4, 5]);
+
+		var ints = new[] { 3, 4, 5 };
+		ParamsOverload([1, 2, .. ints]);
+		// Not valid syntax: ParamsOverload(1, 2, .. ints);
 
 		// Recommendations:
 		// - add "params ReadOnlySpan<T>" overloads (or params IReadOnlyList<T>) to methods that take "params T[]"
