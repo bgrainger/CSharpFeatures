@@ -168,6 +168,9 @@ internal partial class Net9
 		// two = 2
 		// three = 3
 		// four not found
+
+		// Example: https://github.com/tryAGI/Tiktoken/pull/62
+		// Blog: https://faithlife.codes/blog/2024/07/alternate-lookups-in-dotnet-9/
 	}
 
 	public sealed class ReadOnlySpanCharEqualityComparer :
