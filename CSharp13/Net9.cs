@@ -2,6 +2,7 @@ using System.Buffers.Text;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 
 namespace CSharp13;
@@ -141,4 +142,62 @@ internal partial class Net9
 			Console.WriteLine($"{stopwatch.Elapsed.TotalSeconds:f1}"); // 1.0, 2.0, 3.0
 		}
 	}
+
+	public void AlternateLookups()
+	{
+		Dictionary<string, int> dictionary = new(new ReadOnlySpanCharEqualityComparer())
+		{
+			{ "one", 1 },
+			{ "two", 2 },
+			{ "three", 3 },
+		};
+
+		ReadOnlySpan<char> input = "one,two,three,four";
+		var alternateDictionary = dictionary.GetAlternateLookup<ReadOnlySpan<char>>();
+
+		foreach (var range in input.Split(','))
+		{
+			ReadOnlySpan<char> token = input[range];
+			if (alternateDictionary.TryGetValue(token, out int value))
+				Console.WriteLine($"{token.ToString()} = {value}");
+			else
+				Console.WriteLine($"{token.ToString()} not found");
+		}
+
+		// one = 1
+		// two = 2
+		// three = 3
+		// four not found
+	}
+
+	public sealed class ReadOnlySpanCharEqualityComparer :
+		IEqualityComparer<string>,
+		IAlternateEqualityComparer<ReadOnlySpan<char>, string>
+	{
+		// check if an alternate key is equal to a "real" key
+		public bool Equals(ReadOnlySpan<char> x, string y) =>
+			x.SequenceEqual(y);
+
+		// get the hash code of an alternate key, which must match the hash code for the equivalent real key
+		public int GetHashCode(ReadOnlySpan<char> span)
+		{
+			// djb2 is a simple hash function: http://www.cse.yorku.ca/~oz/hash.html
+			uint hash = 5381;
+			foreach (var ch in span)
+				hash = hash * 33u + ch;
+			return (int) hash;
+		}
+
+		// create a "real" key from an alternate key
+		public string Create(ReadOnlySpan<char> alternate) =>
+			alternate.ToString();
+
+		// methods from IEqualityComparer<string> so we can provide identical behavior
+		public bool Equals(string? x, string? y) =>
+			string.Equals(x, y);
+
+		public int GetHashCode([DisallowNull] string obj) =>
+			obj is null ? 0 : GetHashCode(obj.AsSpan());
+	}
 }
+
