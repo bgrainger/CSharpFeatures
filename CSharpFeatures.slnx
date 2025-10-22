@@ -1,0 +1,14 @@
+<Solution>
+  <Project Path="CSharp10/CSharp10.csproj" />
+  <Project Path="CSharp11/CSharp11.csproj" />
+  <Project Path="CSharp12/CSharp12.csproj" />
+  <Project Path="CSharp13/CSharp13.csproj" />
+  <Project Path="CSharp14/CSharp14.csproj" />
+  <Project Path="CSharp71/CSharp71.csproj" />
+  <Project Path="CSharp72/CSharp72.csproj" />
+  <Project Path="CSharp73/CSharp73.csproj" />
+  <Project Path="CSharp8Framework/CSharp8Framework.csproj" />
+  <Project Path="CSharp8Nuget/CSharp8Nuget.csproj" />
+  <Project Path="CSharp9Framework/CSharp9Framework.csproj" />
+  <Project Path="CSharp9Net5/CSharp9Net5.csproj" />
+</Solution>
