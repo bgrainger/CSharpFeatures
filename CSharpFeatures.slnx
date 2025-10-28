@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/tools/">
+    <File Path="tools/Build.cs" />
+  </Folder>
   <Project Path="CSharp10/CSharp10.csproj" />
   <Project Path="CSharp11/CSharp11.csproj" />
   <Project Path="CSharp12/CSharp12.csproj" />
