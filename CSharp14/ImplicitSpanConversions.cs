@@ -53,7 +53,7 @@ internal class ImplicitSpanConversions
 		// workaround
 		Assert.AreEqual([1], array.AsSpan());
 
-		// or library could add [OverloadResolutionProririty]
+		// or library could add [OverloadResolutionPriority]
 	}
 }
 
