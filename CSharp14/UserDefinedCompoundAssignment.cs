@@ -1,5 +1,3 @@
-using System.Text;
-
 namespace CSharp14;
 
 public sealed class Length(double meters)
