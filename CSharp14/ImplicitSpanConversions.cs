@@ -36,9 +36,9 @@ internal class ImplicitSpanConversions
 	{
 		int[] array = [1, 2, 3, 4, 5];
 
-		// was Enumerable.Reverse<T>(this IEnumerable<T>)
+		// was IEnumerable<T> Enumerable.Reverse<T>(this IEnumerable<T>)
 		// would have become 'void MemoryExtensions.Reverse<T>(this Span<T>)' <-- BREAKING CHANGE
-		// but now Enumerable.Reverse<T>(this T[]) <-- NEW METHOD
+		// but now IEnumerable<T> Enumerable.Reverse<T>(this T[]) <-- NEW METHOD
 		var reversed = array.Reverse();
 	}
 
