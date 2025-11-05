@@ -45,17 +45,6 @@ internal class NullConditionalAssignment
 		GetDictionary()?["count"] += 1;
 	}
 
-	public void RightSideNotEvaluatedWhenNull()
-	{
-		Customer? customer = null;
-
-		// GetCurrentOrder() is NOT called when customer is null
-		customer?.Order = GetCurrentOrder();
-
-		// Same with compound assignment
-		customer?.Score += ExpensiveCalculation();
-	}
-
 	public void IncrementDecrementNotAllowed()
 	{
 		Customer? customer = GetCustomer();
@@ -65,6 +54,17 @@ internal class NullConditionalAssignment
 		// customer?.Score--;
 		// ++customer?.Score;
 		// --customer?.Score;
+	}
+
+	public void RightSideNotEvaluatedWhenNull()
+	{
+		Customer? customer = null;
+
+		// GetCurrentOrder() is NOT called when customer is null
+		customer?.Order = GetCurrentOrder();
+
+		// Same with compound assignment
+		customer?.Score += ExpensiveCalculation();
 	}
 
 	public void NestedNullConditional()
