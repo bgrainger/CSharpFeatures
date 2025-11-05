@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Runtime.CompilerServices;
+
 namespace CSharp14;
 
 // Extension members allow you to add properties, operators, and static members
@@ -94,4 +97,39 @@ internal class UseExtensionMembers
 	}
 
 	// Argument*Exception.ThrowIfX polyfill: https://github.com/mysql-net/MySqlConnector/commit/901df6d495998371c371b8c0e9f34327873bb166#diff-cf1b255962f3d169d25c584e5e14c8671784d9c7fa8433f03b20ae9cd83b51f9
+}
+
+internal static class ExtensionPropertySetter
+{
+	extension(object obj)
+	{
+		public string? Name
+		{
+			get => s_lookup.TryGetValue(obj, out var result) ? result : null;
+			set
+			{
+				if (value is null)
+					s_lookup.Remove(obj);
+				else
+					s_lookup.AddOrUpdate(obj, value);
+			}
+		}
+	}
+
+	private static readonly ConditionalWeakTable<object, string> s_lookup = [];
+}
+
+internal class UseExtensionProperty
+{
+	public void SetProperty()
+	{
+		var list = new List<int>();
+		list.Name = "My cool list";
+		Console.WriteLine(list.Name);
+
+		list.Name = null;
+		Console.WriteLine(list.Name);
+
+		this.Name = "A fun class";
+	}
 }
