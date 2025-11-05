@@ -67,5 +67,22 @@ internal class ExtensionMembers
 		Console.WriteLine(string.Join(", ", combined)); // 1, 2, 3, 4
 	}
 
+	public void FullyWrittenOutInvocation()
+	{
+		var numbers = new[] { 1, 2, 3 };
+
+		// numbers.WhereNotNull
+		var nonNullNumbers = EnumerableExtensions.WhereNotNull(numbers);
+
+		// numbers.IsEmpty
+		bool isEmpty = EnumerableExtensions.get_IsEmpty(numbers);
+
+		// IEnumerable<int>.Empty
+		var empty = EnumerableExtensions.get_Empty<int>();
+
+		// first + second
+		var combined = EnumerableExtensions.op_Addition([1, 2], [3, 4]);
+	}
+
 	// Argument*Exception.ThrowIfX polyfill: https://github.com/mysql-net/MySqlConnector/commit/901df6d495998371c371b8c0e9f34327873bb166#diff-cf1b255962f3d169d25c584e5e14c8671784d9c7fa8433f03b20ae9cd83b51f9
 }
