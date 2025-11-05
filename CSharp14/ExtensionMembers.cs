@@ -5,6 +5,9 @@ namespace CSharp14;
 
 internal static class EnumerableExtensions
 {
+	// C# 13
+	public static IEnumerable<TSource> SomeExtension<TSource>(this IEnumerable<TSource> source) => source;
+
 	// Extension block for instance members
 	extension<TSource>(IEnumerable<TSource> source)
 	{
@@ -36,8 +39,14 @@ internal static class IntExtensions
 	}
 }
 
-internal class ExtensionMembers
+internal class UseExtensionMembers
 {
+	public void InstanceExtensionMethod()
+	{
+		var numbers = new int?[] { 1, null, 3 };
+		Console.WriteLine(string.Join(", ", numbers.WhereNotNull())); // 1, 3
+	}
+
 	public void InstanceExtensionProperty()
 	{
 		var numbers = new[] { 1, 2, 3 };
