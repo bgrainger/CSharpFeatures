@@ -12,7 +12,6 @@ internal readonly union DocumentSource(FileInfo, Uri, Stream, string)
 		Uri uri => uri.Host,
 		Stream => "(stream)",
 		string => "(text)",
-		null => "(none)",
 	};
 }
 
@@ -42,7 +41,6 @@ internal class UnionTypes
 			Uri uri => await s_httpClient.GetStringAsync(uri),
 			Stream stream => await new StreamReader(stream).ReadToEndAsync(),
 			string text => text,
-			// doesn't need a discard arm: _ => throw new InvalidOperationException(), because the compiler knows every case type
 		};
 
 	public async Task ExhaustiveSwitch()
@@ -99,7 +97,7 @@ internal class UnionTypes
 
 	public void DefaultValue()
 	{
-		// a generated union is a struct, so 'default' has a null Value
+		// a generated union is a struct, so 'default(DocumentSource)' has a null Value
 		DocumentSource source = default;
 		Console.WriteLine(source.Value is null); // True
 		Console.WriteLine(source is null); // True (the null pattern tests the contents)
@@ -109,6 +107,8 @@ internal class UnionTypes
 		// so this compiles without warning but throws SwitchExpressionException
 		// string kind = source switch { FileInfo => "file", Uri => "URL", Stream => "stream", string => "text" };
 
+		// runtime error for `default(DocumentSource).DisplayName` if `null` not handled: System.Runtime.CompilerServices.SwitchExpressionException: Non-exhaustive switch expression failed to match its input.
+
 		// prefer an explicit null arm over '_' so that you still get a warning when a new case type is added
 		string kind = source switch
 		{
@@ -116,7 +116,7 @@ internal class UnionTypes
 			Uri => "URL",
 			Stream => "stream",
 			string => "text",
-			null => "(nothing)",
+			null => "(nothing)", // don't use _ => ...
 		};
 	}
 
@@ -188,6 +188,10 @@ internal class UnionTypes
 			bool b => $"bool: {b}",
 		};
 
+		// calls the HasValue property
+		if (value is null)
+			Console.WriteLine("is null");
+
 		// class-based union: reference semantics; null pattern matches a null reference or a null Value
 		ApiResult<string> result = new ApiResult<string>(new TimeoutException());
 		description = result switch
@@ -252,12 +256,12 @@ internal class UnionTypes
 
 	public void StartupLayoutAfter()
 	{
-		StartupLayout layout = new NamedLayout("Sermon Prep");
+		StartupLayout layout = "Sermon Prep";
 
 		// the compiler knows it's exactly one of these
 		Console.WriteLine(layout switch
 		{
-			NamedLayout(var title) => $"Load layout '{title}'",
+			string title => $"Load layout '{title}'",
 			StartupLayoutOption option => $"Start with {option}",
 		});
 		// Load layout 'Sermon Prep'
@@ -324,20 +328,18 @@ internal sealed class StartupLayoutOptionSetting
 }
 
 // After: "exactly one" is the type; no nullable properties, no runtime check, no '.Value'
-internal sealed record class NamedLayout(string Title);
-
-internal union StartupLayout(StartupLayoutOption, NamedLayout)
+internal union StartupLayout(StartupLayoutOption, string)
 {
 	public override string ToString() => this switch
 	{
-		NamedLayout(var title) => $"layout:{title}",
+		string title => $"layout:{title}",
 		StartupLayoutOption option => $"custom:{option}",
 		null => "",
 	};
 
 	public string GetStartProfile() => this switch
 	{
-		NamedLayout => "layout/named",
+		string => "layout/named",
 		StartupLayoutOption option => option switch
 		{
 			StartupLayoutOption.Home => "home",
