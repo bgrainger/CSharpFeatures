@@ -44,6 +44,23 @@ internal class LabeledBreakContinue
 		return result;
 	}
 
+	public (int Row, int Column)? FindFirstNegativeWithReturn(int[][] grid)
+	{
+		for (int row = 0; row < grid.Length; row++)
+		{
+			for (int column = 0; column < grid[row].Length; column++)
+			{
+				if (grid[row][column] < 0)
+				{
+					return (row, column);
+				}
+			}
+		}
+
+		return default;
+	}
+
+
 	public (int Row, int Column)? FindFirstNegative(int[][] grid)
 	{
 		(int Row, int Column)? result = null;
