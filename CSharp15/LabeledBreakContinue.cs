@@ -100,7 +100,6 @@ internal class LabeledBreakContinue
 	{
 		int sum = 0;
 
-		// a plain 'break' inside 'switch' exits the switch; before C# 15, exiting the loop needed a flag, 'goto', or 'return'
 		tokens: foreach (var token in tokens)
 		{
 			switch (token)
@@ -109,12 +108,14 @@ internal class LabeledBreakContinue
 				break tokens;
 
 			case "skip":
-				continue; // 'continue' already skipped past the switch to the next iteration
+				continue tokens;
 
 			default:
 				sum += int.Parse(token);
 				break;
 			}
+
+			Console.WriteLine("after switch");
 		}
 
 		return sum;

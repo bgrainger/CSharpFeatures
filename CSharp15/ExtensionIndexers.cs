@@ -62,6 +62,8 @@ internal class ExtensionIndexers
 		// implicit Index support isn't provided by an extension indexer (it needs Length/Count and an instance int indexer)
 		// error CS0021: Cannot apply indexing with [] to an expression of type 'IEnumerable<int>'
 		// var last = numbers[^1];
+
+		// public T this[Index index] => source.ElementAt(index.GetOffset(source.Count()));
 	}
 
 	public void RangeIndexer()

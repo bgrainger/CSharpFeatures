@@ -181,7 +181,7 @@ internal partial class Net11
 	public async Task RequestCompression(HttpClient httpClient, Uri uri)
 	{
 		// compress the request body; sets the Content-Encoding header and compresses as the content is serialized
-		using var content = new GZipCompressedContent(JsonContent.Create(new { Name = "Logos", Version = 55 }), CompressionLevel.Fastest);
+		using HttpContent content = new GZipCompressedContent(JsonContent.Create(new { Name = "Logos", Version = 55 }), CompressionLevel.Fastest);
 		using var response = await httpClient.PostAsync(uri, content);
 
 		// also BrotliCompressedContent and ZstandardCompressedContent
@@ -189,8 +189,7 @@ internal partial class Net11
 
 	public async Task DnsRecords()
 	{
-		// Before .NET 11: only A/AAAA (Dns.GetHostAddresses); SRV, MX, TXT, etc. needed a third-party library such as DnsClient
-		// .NET 11: typed record lookups on Windows, Linux, and macOS
+		// Before .NET 11: only A/AAAA (Dns.GetHostAddresses); SRV, MX, TXT, etc. needed a third-party library
 		DnsResult<MxRecord> mx = await Dns.ResolveMxAsync("logos.com");
 		Console.WriteLine(mx.ResponseCode); // NoError
 		foreach (var record in mx.Records)

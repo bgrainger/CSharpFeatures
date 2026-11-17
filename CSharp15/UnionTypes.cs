@@ -32,6 +32,8 @@ internal class UnionTypes
 
 		// ToString isn't forwarded to the contents
 		Console.WriteLine(source); // CSharp15.DocumentSource
+
+		DocumentSource? nullableSource = "initialize nullable union";
 	}
 
 	private static async Task<string> LoadAsync(DocumentSource source) =>
@@ -101,7 +103,10 @@ internal class UnionTypes
 		DocumentSource source = default;
 		Console.WriteLine(source.Value is null); // True
 		Console.WriteLine(source is null); // True (the null pattern tests the contents)
+		Console.WriteLine(source is not null); // False
 		Console.WriteLine(source is { }); // True (the struct itself is never null)
+		if (source is var value)
+			Console.WriteLine(value.Value is null); // True
 
 		// the compiler assumes the contents are non-null when all case types are non-nullable,
 		// so this compiles without warning but throws SwitchExpressionException
@@ -148,6 +153,24 @@ internal class UnionTypes
 
 		// error CS0457: Ambiguous user defined conversions 'Result<Exception>.Result(Exception)' and 'Result<Exception>.Result(Exception)' when converting from 'Exception' to 'Result<Exception>'
 		// Result<Exception> result = new Exception();
+	}
+
+	// Use case: replace Libronix.Utility.ThrowOnError
+
+	/// <summary>
+	/// Indicates whether a method should throw an exception if it fails.
+	/// </summary>
+	public enum ThrowOnError
+	{
+		/// <summary>
+		/// The method should not throw an exception if it fails.
+		/// </summary>
+		False,
+
+		/// <summary>
+		/// The method should throw an exception if it fails.
+		/// </summary>
+		True,
 	}
 
 	public void WhatTheCompilerGenerates()
@@ -203,7 +226,7 @@ internal class UnionTypes
 	}
 
 	[Union]
-	internal readonly struct IntOrBool : IUnion
+	internal readonly struct IntOrBool // [optional] : IUnion
 	{
 		public IntOrBool(int value) => (m_tag, m_int) = (Tag.Int, value);
 		public IntOrBool(bool value) => (m_tag, m_bool) = (Tag.Bool, value);
@@ -236,6 +259,8 @@ internal class UnionTypes
 
 		public object? Value { get; }
 	}
+
+	// Advanced: IUnionMembers
 
 	// Real-world example: LogosDesktop's StartupLayoutOptionSetting (LDLS4\StartupLayoutOptionSetting.cs)
 	// is either a built-in startup option (an enum) or the name of a saved layout, never both
@@ -327,7 +352,7 @@ internal sealed class StartupLayoutOptionSetting
 	}
 }
 
-// After: "exactly one" is the type; no nullable properties, no runtime check, no '.Value'
+// After: union of the two types
 internal union StartupLayout(StartupLayoutOption, string)
 {
 	public override string ToString() => this switch
